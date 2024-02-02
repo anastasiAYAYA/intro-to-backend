@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Articles</title>
+    </head>
+    <body>
+        <h1>Articles</h1>
+        {% for articles in articles %}
+            <ol>
+                {{ forloop.counter }}. {{ articles.title }}
+            </ol>
+        {% endfor %}
+    </body>
+</html>
