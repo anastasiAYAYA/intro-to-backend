@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block head %}
+                <style>
+           p{
+               font-size: 28px;
+               text-align: center;
+               font-style: italic;
+               font-weight: bold;
+           }
+           ol{
+               font-size: 18px;
+               font-style: italic;
+               margin-right: 2% ;
+           }
+           .main{
+               background-color: #E0DDDE;
+               height: 98%;
+               width: 30%;
+               border: 3px solid #8F8785;
+           }
+           body{
+               display: flex;
+               justify-content: center;
+               background-color: #C1A07D;
+           }
+        </style>
+    {% endblock %}
+{% block content %}
+    <div class="main">
+            <p>{{ todo.id }} дело</p>
+            <ol>Задание: {{ todo.title }}</ol>
+            <ol>Описание: {{ todo.description }}</ol>
+            <ol>Дата: {{ todo.due_date }}</ol>
+            <ol>{{ todo.status }}</ol>
+    </div>
+{% endblock %}
