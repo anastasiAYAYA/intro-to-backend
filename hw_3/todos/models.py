@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import DateInput
 
+
 class Todo(models.Model):
     title = models.CharField(null=False, max_length=100, default='')
     description = models.CharField(null=False, max_length=1000, default='')

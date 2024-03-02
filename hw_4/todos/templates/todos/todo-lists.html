@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                {% include 'header.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-8 offset-2">
+                    <form action="/todo-lists/" method="POST" class="my-4">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-4">
+                                        <label for="{{ field.auto_id }}" class="form-label"> {{ field.label }} </label>
+                                    {{ field }}
+                                {% if field.errors|length > 0 %}
+                                        <div class="text=danger">
+                                        {{ field.errors }}
+                                        </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary" type="submit">Добавить</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Категории:</h3>
+            </div>
+        {% if categories|length > 0 %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center">#</th>
+              <th scope="col" style="text-align: center">Категория</th>
+              <th scope="col" style="text-align: center">Посмотреть дела</th>
+              <th scope="col" style="text-align: center">Изменить</th>
+              <th scope="col" style="text-align: center">Удалить</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for category in categories %}
+            <tr>
+              <th style="text-align: center" class="align-middle">{{ forloop.counter }}</th>
+              <td style="text-align: center" class="align-middle">{{ category.title }}</td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'category_info' pk=category.id %}"><button class="btn btn-primary btn-sm"><img src="{% static "img/free-icon-right-arrow-8109985.png" %}" width="25hv" alt="go"></button></a></td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'category_edit' pk=category.id %}"><button class="btn btn-info btn-sm"><img src="{% static "img/free-icon-artist-brush-72670.png" %}" width="25hv" alt="edit"></button></a></td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'category_delete' pk=category.id %}"><button class="btn btn-danger btn-sm"><img src="{% static "img/free-icon-cancel-446091.png" %}" width="25hv" alt="delete"></button></a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

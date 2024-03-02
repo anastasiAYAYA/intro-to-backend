@@ -7,3 +7,4 @@ class CreateList(forms.Form):
     Описание = forms.CharField(min_length=0, max_length=1000, required=True)
     Дата = forms.DateField(required=True, widget=DateInput({'type': 'date'}))
     Статус = forms.BooleanField(required=False)
+

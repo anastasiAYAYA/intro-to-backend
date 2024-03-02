@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                {% include 'header.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <h3 style="margin-top: 3vh">{{ category.title }}:</h3>
+            </div>
+            <div class="col-1">
+                <a href="{% url 'category_edit' pk=category.id %}"><button class="btn btn-primary" style="margin-top: 3vh">Изменить категорию</button></a>
+            </div>
+        {% if todos|length > 0 %}
+        <table class="table" style="margin-top: 3vh">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center">#</th>
+              <th scope="col" style="text-align: center">Дело</th>
+              <th scope="col" style="text-align: center">Дата</th>
+              <th scope="col" style="text-align: center">Статус</th>
+              <th scope="col" style="text-align: center">Перейти</th>
+              <th scope="col" style="text-align: center">Изменить</th>
+              <th scope="col" style="text-align: center">Удалить</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for todo in todos %}
+            <tr>
+              <th style="text-align: center" class="align-middle">{{ forloop.counter }}</th>
+              <td style="text-align: center" class="align-middle">{{ todo.title }}</td>
+              <td style="text-align: center" class="align-middle">{{ todo.due_date }}</td>
+              <td style="text-align: center" class="align-middle">{{ todo.status }}</td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'todos_info' pk=todo.id %}"><button class="btn btn-primary btn-sm"><img src="{% static "img/free-icon-right-arrow-8109985.png" %}" width="25hv" alt="go"></button></a></td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'todo_edit' pk=todo.id %}"><button class="btn btn-info btn-sm"><img src="{% static "img/free-icon-artist-brush-72670.png" %}" width="25hv" alt="edit"></button></a></td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'todo_delete' pk=todo.id %}"><button class="btn btn-danger btn-sm"><img src="{% static "img/free-icon-cancel-446091.png" %}" width="25hv" alt="delete"></button></a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
