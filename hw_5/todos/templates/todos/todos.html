@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                {% include 'header.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row">
+    <div class="col-12">
+            <form action="/todos/" method="POST" class="my-3">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.auto_id }}" class="form-label"> {{ field.label }} </label>
+                    <div class="inputs">
+                        {{ field }}
+                    </div>
+                    {% if field.errors|length > 0 %}
+                        <div class="text=danger">
+                        {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+               <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+               </div>
+            </form>
+        </div>
+        </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Список дел:</h3>
+            </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center">#</th>
+              <th scope="col" style="text-align: center">Дело</th>
+              <th scope="col" style="text-align: center">Дата</th>
+              <th scope="col" style="text-align: center">Статус</th>
+              <th scope="col" style="text-align: center">Инфо</th>
+              <th scope="col" style="text-align: center">Удалить</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for todo in todos %}
+            <tr>
+              <th style="text-align: center" class="align-middle">{{ forloop.counter }}</th>
+              <td style="text-align: center" class="align-middle">{{ todo.title }}</td>
+              <td style="text-align: center" class="align-middle">{{ todo.due_date }}</td>
+              <td style="text-align: center" class="align-middle">{{ todo.status }}</td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'todos_info' pk=todo.id %}"><button class="btn btn-primary btn-sm"><img src="{% static "img/img.png" %}" width="29hv" alt="go"></button></a></td>
+              <td style="text-align: center" class="align-middle"><a href="{% url 'delete_todo' pk=todo.id %}"><button class="btn btn-danger btn-sm"><img src="{% static "img/img_1.png" %}" width="29hv" alt="delete"></button></a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock %}
